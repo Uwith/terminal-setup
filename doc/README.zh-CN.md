@@ -4,6 +4,8 @@
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+**其他语言:** [English](../README.en.md)
+
 ## 特性
 
 ### 相较于传统脚本的核心优势

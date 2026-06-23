@@ -1,198 +1,200 @@
 # Terminal Setup
 
-> A modern, user-friendly terminal environment configuration script with **opt-in interactive installation**, **complete state tracking**, and **one-command uninstall/rollback capability**.
+> 一个现代化、用户友好的终端环境配置脚本，具有 **交互式选择安装**、**完整状态追踪** 和 **一键卸载/回滚** 功能。
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-## Features
+**其他语言:** [English](doc/README.en.md)
 
-### Core Advantages Over Traditional Scripts
+## 特性
 
-| Feature | This Project | Traditional Scripts (e.g., lewislulu/terminal-setup) |
-|---------|-------------|--------------------------------------------|
-| **Installation Mode** | Opt-in (user chooses each component) | Opt-out (installs everything by default) |
-| **Rollback Capability** | Full uninstall with config restoration | Partial backup only, no package removal |
-| **State Tracking** | Records all installed packages | No tracking of installed packages |
-| **Config Backup** | Timestamped backups of all modified files | Backs up but no centralized management |
-| **User Control** | Confirm each step with [y/N] | Most steps run automatically |
+### 相较于传统脚本的核心优势
 
-### Pain Points Solved
+| 功能 | 本项目 | 传统脚本 (如 lewislulu/terminal-setup) |
+|------|--------|--------------------------------------|
+| **安装模式** | 选择加入式 (用户选择每个组件) | 选择退出式 (默认安装所有内容) |
+| **回滚能力** | 完全卸载并恢复配置 | 仅部分备份，不移除包 |
+| **状态追踪** | 记录所有已安装的包 | 不追踪已安装的包 |
+| **配置备份** | 所有修改文件的时间戳备份 | 备份但无集中管理 |
+| **用户控制** | 每一步都需要确认 [y/N] | 大部分步骤自动运行 |
 
-1. **No More "Full House" Installation**
-   - Traditional scripts install dozens of tools without asking
-   - This script asks for confirmation before installing **each component**
-   - You can install just Fish shell without any CLI tools, or vice versa
+### 解决的痛点
 
-2. **Complete Rollback Mechanism**
-   - All modified config files are backed up with timestamps
-   - All installed packages (brew/apt/curl) are recorded
-   - `./setup.sh uninstall` automatically:
-     - Restores all backup config files
-     - Uninstalls all recorded packages
-     - Cleans up the state directory
+1. **不再强制全家桶安装**
+   - 传统脚本会在未经询问的情况下安装数十个工具
+   - 本脚本在安装 **每个组件** 前都会询问确认
+   - 你可以只安装 Fish shell 而不安装任何 CLI 工具，或者反之
 
-3. **Transparent State Management**
-   - All installation data saved to `~/.terminal-setup/`
-   - `./setup.sh status` shows exactly what was installed
-   - Easy to audit and manage
+2. **完整的回滚机制**
+   - 所有修改的配置文件都会带有时间戳备份
+   - 所有已安装的包 (brew/apt/curl) 都会被记录
+   - `./setup.sh uninstall` 会自动:
+     - 恢复所有备份的配置文件
+     - 卸载所有已记录的包
+     - 清理状态目录
 
-4. **Cross-Platform Intelligence**
-   - Auto-detects macOS (uses Homebrew)
-   - Auto-detects Debian/Ubuntu (uses apt)
-   - Handles WSL special cases
-   - Provides platform-specific installation methods
+3. **透明的状态管理**
+   - 所有安装数据保存到 `~/.terminal-setup/`
+   - `./setup.sh status` 显示确切的安装内容
+   - 易于审计和管理
 
-## Quick Start
+4. **跨平台智能**
+   - 自动检测 macOS (使用 Homebrew)
+   - 自动检测 Debian/Ubuntu (使用 apt)
+   - 处理 WSL 特殊情况
+   - 提供特定于平台的安装方法
+
+## 快速开始
 
 ```bash
-# Clone the repository
+# 克隆仓库
 git clone https://github.com/Uwith/terminal-setup.git
 cd terminal-setup
 
-# Run interactive installation
+# 运行交互式安装
 ./setup.sh
 
-# Or run directly (curl pipe)
+# 或者直接运行 (curl 管道)
 bash <(curl -fsSL https://raw.githubusercontent.com/Uwith/terminal-setup/main/setup.sh)
 ```
 
-## Usage
+## 使用方法
 
-### Interactive Installation
+### 交互式安装
 
 ```bash
 ./setup.sh
 ```
 
-This starts an interactive process where you'll be asked to confirm each component:
+这将启动一个交互式流程，询问你确认每个组件:
 
 ```
 ===========================================================
-  Terminal Setup Script - Interactive Configuration
+  Terminal Setup Script - 交互式配置
 ===========================================================
 
-This script will help you configure a modern terminal environment.
-You will be asked to confirm each step (y/N).
-All changes can be rolled back with: ./setup.sh uninstall
+此脚本将帮助你配置现代终端环境。
+你将被要求确认每个步骤 (y/N)。
+所有更改都可以通过以下命令回滚: ./setup.sh uninstall
 
-[INFO] Detected macOS
+[INFO] 检测到 macOS
 
-=== Step 1: Package Manager ===
-? Install Homebrew? [y/N]
+=== 第1步: 包管理器 ===
+? 是否安装 Homebrew? [y/N]
 
-=== Step 2: Terminal Emulator ===
-? Install Ghostty terminal emulator? [y/N]
+=== 第2步: 终端模拟器 ===
+? 是否安装 Ghostty 终端模拟器? [y/N]
 
-=== Step 3: Nerd Font ===
-? Install MesloLGS NF nerd fonts? [y/N]
+=== 第3步: Nerd 字体 ===
+? 是否安装 MesloLGS NF nerd 字体? [y/N]
 
-=== Step 4: Shell Setup ===
-  Please choose your shell:
-  1) Fish - Modern shell, amazing defaults, not POSIX
-  2) Zsh  - POSIX-compatible, fish-like with plugins
-  3) Skip shell installation
+=== 第4步: Shell 设置 ===
+  请选择你的 Shell:
+  1) Fish - 现代 Shell，惊艳的默认配置，非 POSIX
+  2) Zsh  - POSIX 兼容，通过插件获得类似 fish 的功能
+  3) 跳过 Shell 安装
 
-Choose [1/2/3, default: 3]: 1
-? Install Fish Shell? [y/N]
-? Set Fish as default shell? [y/N]
+选择 [1/2/3, 默认: 3]: 1
+? 是否安装 Fish Shell? [y/N]
+? 是否设置 Fish 为默认 Shell? [y/N]
 ...
 ```
 
-### One-Command Uninstall
+### 一键卸载
 
 ```bash
 ./setup.sh uninstall
 ```
 
-This will:
-1. Restore all backup configuration files (`.bashrc`, `.zshrc`, `config.fish`, etc.)
-2. Uninstall all packages installed by the script (Homebrew, apt, manually installed)
-3. Clean up the state directory
-4. Display a summary of what was removed
+这将:
+1. 恢复所有备份的配置文件 (`.bashrc`, `.zshrc`, `config.fish` 等)
+2. 卸载脚本安装的所有包 (Homebrew, apt, 手动安装的)
+3. 清理状态目录
+4. 显示移除的内容摘要
 
-### Check Installation Status
+### 查看安装状态
 
 ```bash
 ./setup.sh status
 ```
 
-Shows:
-- State directory location
-- List of all backup files
-- All installed packages
-- Installation timestamp
+显示:
+- 状态目录位置
+- 所有备份文件列表
+- 所有已安装的包
+- 安装时间戳
 
-### Show Help
+### 显示帮助
 
 ```bash
 ./setup.sh --help
 ./setup.sh -h
 ```
 
-## Available Components
+## 可用组件
 
-All components are **optional** and will only be installed if you confirm:
+所有组件都是 **可选的**，只有在你确认后才会安装:
 
-### Terminal Emulator
-- **Ghostty** (macOS) - GPU-accelerated terminal emulator
-- For Linux: Manual installation instructions provided
-- For WSL: Runs on Windows side, use Windows Terminal
+### 终端模拟器
+- **Ghostty** (macOS) - GPU 加速的终端模拟器
+- Linux: 提供手动安装说明
+- WSL: 在 Windows 端运行，使用 Windows Terminal
 
 ### Shell
-- **Fish** - Modern shell with built-in autosuggestions and syntax highlighting
-- **Zsh** - POSIX-compatible with fish-like plugins (autosuggestions, syntax-highlighting)
+- **Fish** - 现代 Shell，内置自动建议和语法高亮
+- **Zsh** - POSIX 兼容，配有类似 fish 的插件 (自动建议、语法高亮)
 
-### Shell Prompt
-- **Starship** - Cross-shell prompt with Catppuccin Mocha theme
+### Shell 提示符
+- **Starship** - 跨 Shell 提示符，使用 Catppuccin Mocha 主题
 
-### Nerd Fonts
-- **MesloLGS NF** - Nerd Font for icons and powerline glyphs
+### Nerd 字体
+- **MesloLGS NF** - 显示图标和 powerline 字形的字体
 
-### Modern CLI Tools
-- **bat** - `cat` with syntax highlighting and line numbers
-- **eza** - `ls` with icons, git status, tree view
-- **fd** - Fast and user-friendly `find` replacement
-- **ripgrep (rg)** - Fast grep alternative
-- **btop** - Beautiful system monitor
-- **zoxide** - Smart `cd` that learns your habits
-- **jq** - JSON processor
-- **tldr** - Simplified man pages with examples
-- **fzf** - Fuzzy finder
-- **git-delta** - Beautiful git diffs with syntax highlighting
-- **lazygit** - Git TUI
+### 现代 CLI 工具
+- **bat** - 带有语法高亮和行号的 `cat` 命令
+- **eza** - 带有图标、git 状态、树形视图的 `ls` 命令
+- **fd** - 快速且用户友好的 `find` 替代工具
+- **ripgrep (rg)** - 快速的 grep 替代工具
+- **btop** - 美观的系统监控工具
+- **zoxide** - 智能 `cd`，会学习你的习惯
+- **jq** - JSON 处理器
+- **tldr** - 带有示例的简化 man 页面
+- **fzf** - 模糊查找器
+- **git-delta** - 带有语法高亮的漂亮 git diff
+- **lazygit** - Git 文本用户界面
 
-### Version Managers
-- **fnm** - Fast Node Manager (Rust-based, ~1ms shell startup)
+### 版本管理器
+- **fnm** - 快速 Node 版本管理器 (基于 Rust，~1ms Shell 启动时间)
 
-### Terminal Multiplexer
-- **Zellij** - Modern terminal multiplexer (like tmux, but better UX)
+### 终端多路复用器
+- **Zellij** - 现代终端多路复用器 (类似 tmux，但有更好的用户体验)
 
-### Configuration Files
-- Shell configurations (`.zshrc`, `config.fish`)
-- Starship configuration (`starship.toml`)
-- Custom functions (set-ssh-key)
-- Git configuration for delta
+### 配置文件
+- Shell 配置文件 (`.zshrc`, `config.fish`)
+- Starship 配置 (`starship.toml`)
+- 自定义函数 (set-ssh-key)
+- Git 配置 (用于 delta)
 
-## Architecture
+## 架构
 
-### State Directory Structure
+### 状态目录结构
 
 ```
 ~/.terminal-setup/
-├── backups/              # All backup config files with timestamps
+├── backups/              # 所有带有时间戳的备份配置文件
 │   ├── .zshrc.1719000000.bak
 │   ├── config.fish.1719000001.bak
 │   └── starship.toml.1719000002.bak
-├── installed_packages.txt  # List of all installed packages
-├── os.txt                 # Detected OS
-├── installed_at.txt       # Installation timestamp
-├── shell.txt             # Selected shell type
-└── state.json            # Structured state information
+├── installed_packages.txt  # 所有已安装包的列表
+├── os.txt                 # 检测到的操作系统
+├── installed_at.txt       # 安装时间戳
+├── shell.txt             # 选择的 Shell 类型
+└── state.json            # 结构化的状态信息
 ```
 
-### Package Tracking Format
+### 包追踪格式
 
-Each installed package is recorded in `installed_packages.txt` with its installation method:
+每个已安装的包都会记录在 `installed_packages.txt` 中，并标记其安装方法:
 
 ```
 brew:fish
@@ -204,66 +206,66 @@ bundled:eza
 symlink:bat
 ```
 
-This allows the uninstall command to know exactly how each package was installed and how to remove it.
+这使得 uninstall 命令能够准确知道每个包是如何安装的以及如何移除它。
 
-## Platform Support
+## 平台支持
 
-| Platform | Status | Package Manager | Notes |
-|----------|--------|----------------|-------|
-| **macOS** | Fully Supported | Homebrew | Primary target |
-| **Debian/Ubuntu** | Fully Supported | apt | All tools available |
-| **WSL** | Fully Supported | apt | Windows Subsystem for Linux |
-| **Windows (native)** | Not Supported | - | Use WSL instead |
+| 平台 | 状态 | 包管理器 | 备注 |
+|------|------|----------|------|
+| **macOS** | 完全支持 | Homebrew | 主要目标平台 |
+| **Debian/Ubuntu** | 完全支持 | apt | 所有工具可用 |
+| **WSL** | 完全支持 | apt | Windows Subsystem for Linux |
+| **Windows (原生)** | 不支持 | - | 请使用 WSL |
 
-## Comparison with lewislulu/terminal-setup
+## 与 lewislulu/terminal-setup 的对比
 
-### What This Project Improves
+### 本项目的改进点
 
-1. **User Choice**
-   - **Before**: `./setup.sh --fish` installs Ghostty, Fish, all CLI tools, Starship, fonts, etc.
-   - **After**: You're asked for **each component** individually
+1. **用户选择**
+   - **之前**: `./setup.sh --fish` 会安装 Ghostty、Fish、所有 CLI 工具、Starship、字体等
+   - **现在**: 每个组件都会 **单独询问确认**
 
-2. **Rollback Capability**
-   - **Before**: Backs up config files, but no way to uninstall packages
-   - **After**: `./setup.sh uninstall` removes packages AND restores configs
+2. **回滚能力**
+   - **之前**: 备份配置文件，但无法卸载包
+   - **现在**: `./setup.sh uninstall` 移除包 **并** 恢复配置
 
-3. **State Visibility**
-   - **Before**: No centralized state, hard to know what was installed
-   - **After**: `./setup.sh status` shows complete installation state
+3. **状态可见性**
+   - **之前**: 没有集中状态，难以知道安装了什么
+   - **现在**: `./setup.sh status` 显示完整的安装状态
 
-4. **Safety**
-   - **Before**: Script makes changes without explicit confirmation
-   - **After**: Every change requires explicit user confirmation [y/N]
+4. **安全性**
+   - **之前**: 脚本在未经明确确认的情况下进行更改
+   - **现在**: 每个更改都需要明确的用户确认 [y/N]
 
-### Tools Inherited from Original Project
+### 继承的工具
 
-This project maintains compatibility with the excellent tool selection from lewislulu/terminal-setup:
-- Same modern CLI tools (bat, eza, fd, rg, etc.)
-- Same shell options (Fish, Zsh)
-- Same prompt (Starship)
-- Same fonts (MesloLGS NF)
-- Same extras (fnm, Zellij)
+本项目保持了来自 lewislulu/terminal-setup 的优秀工具选择:
+- 相同的现代 CLI 工具 (bat, eza, fd, rg 等)
+- 相同的 Shell 选项 (Fish, Zsh)
+- 相同的提示符 (Starship)
+- 相同的字体 (MesloLGS NF)
+- 相同的额外功能 (fnm, Zellij)
 
-### New Features Added
+### 新增功能
 
-1. **Interactive Opt-in** - Every component requires explicit confirmation
-2. **Package Tracking** - Records how each package was installed
-3. **Full Uninstall** - Removes packages and restores configs
-4. **State Management** - Centralized tracking of all changes
-5. **Status Command** - View installation state at any time
-6. **Better Error Handling** - Uses `set -euo pipefail` for robustness
+1. **交互式选择加入** - 每个组件都需要明确确认
+2. **包追踪** - 记录每个包的安装方式
+3. **完整卸载** - 移除包并恢复配置
+4. **状态管理** - 集中追踪所有更改
+5. **状态命令** - 随时查看安装状态
+6. **更好的错误处理** - 使用 `set -euo pipefail` 提高稳健性
 
-## Shell Configuration
+## Shell 配置
 
 ### Fish Shell
 
-If you install Fish, the following will be configured:
+如果你安装 Fish，将会配置以下内容:
 
 ```fish
-# Starship prompt
+# Starship 提示符
 starship init fish | source
 
-# Abbreviations
+# 缩写
 abbr -a ls "eza --icons --group-directories-first"
 abbr -a ll "eza -la --icons --group-directories-first"
 abbr -a cat "bat"
@@ -276,19 +278,19 @@ zoxide init fish | source
 # fzf
 fzf --fish | source
 
-# Custom function
-set-ssh-key [key-name]  # Switch SSH keys
+# 自定义函数
+set-ssh-key [key-name]  # 切换 SSH 密钥
 ```
 
 ### Zsh
 
-If you install Zsh, the following will be configured:
+如果你安装 Zsh，将会配置以下内容:
 
 ```zsh
-# Starship prompt
+# Starship 提示符
 eval "$(starship init zsh)"
 
-# Plugins
+# 插件
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -299,44 +301,44 @@ source /usr/share/fzf/completion.zsh
 # zoxide
 eval "$(zoxide init zsh)"
 
-# Aliases
+# 别名
 alias ls="eza --icons --group-directories-first"
 alias cat="bat"
 alias find="fd"
 alias grep="rg"
 
-# Custom function
-set-ssh-key [key-name]  # Switch SSH keys
+# 自定义函数
+set-ssh-key [key-name]  # 切换 SSH 密钥
 ```
 
-## Contributing
+## 贡献
 
-Contributions are welcome! Please feel free to submit issues or pull requests.
+欢迎贡献！请随时提交问题或拉取请求。
 
-### Development
+### 开发
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/your-feature`)
-3. Make your changes
-4. Test the script on multiple platforms
-5. Commit your changes (`git commit -m 'feat: your feature'`)
-6. Push to the branch (`git push origin feature/your-feature`)
-7. Open a Pull Request
+1. Fork 仓库
+2. 创建功能分支 (`git checkout -b feature/your-feature`)
+3. 进行更改
+4. 在多个平台上测试脚本
+5. 提交更改 (`git commit -m 'feat: your feature'`)
+6. 推送到分支 (`git push origin feature/your-feature`)
+7. 创建 Pull Request
 
-## License
+## 许可证
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+本项目采用 MIT 许可证 - 详情请查看 [LICENSE](LICENSE) 文件。
 
-## Acknowledgments
+## 鸣谢
 
-- Inspired by [lewislulu/terminal-setup](https://github.com/lewislulu/terminal-setup)
-- Thanks to all the developers of the amazing CLI tools included in this setup
-- Special thanks to the Homebrew, Fish Shell, and Zsh communities
+- 灵感来自 [lewislulu/terminal-setup](https://github.com/lewislulu/terminal-setup)
+- 感谢所有被包含在本设置中的出色 CLI 工具的开发者
+- 特别感谢 Homebrew、Fish Shell 和 Zsh 社区
 
-## Support
+## 支持
 
-If you encounter any issues or have questions, please open an issue on GitHub.
+如果你遇到任何问题或有疑问，请在 GitHub 上创建 Issue。
 
 ---
 
-**Enjoy your modern terminal experience!**
+**祝你有愉快的现代终端体验！**
